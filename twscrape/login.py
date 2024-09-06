@@ -261,6 +261,8 @@ async def login(acc: Account, cfg: LoginConfig | None = None) -> Account:
     async with acc.make_client() as client:
         guest_token = await get_guest_token(client)
         client.headers["x-guest-token"] = guest_token
+        client.headers["x-client-transaction-id"] = "10ed094bd9dae8c8"
+
 
         rep = await login_initiate(client)
         ctx = TaskCtx(client, acc, cfg, None, imap)
